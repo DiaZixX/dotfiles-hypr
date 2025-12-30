@@ -377,8 +377,8 @@
   // Bluetooth
   "bluetooth": {
     "format": " {status}",
-    "format-disabled": "",
-    "format-off": "",
+    "format-disabled": " off",
+    "format-off": " off",
     "interval": 30,
     "on-click": "sleep 0.1 && ~/.config/ml4w/settings/bluetooth.sh",
     "format-no-controller": ""
