@@ -2,33 +2,30 @@
 # AUTOSTART
 # -----------------------------------------------------
 
+# The 'ff' command (Fuzzy Finder)
+finder() {
+    # Run the script and capture the result
+    local result=$($HOME/.config/ml4w/bin/ml4w-finder)
+
+    # Check if the script told us to CD
+    if [[ "$result" == TYPE_DIR:* ]]; then
+        local target_dir="${result#TYPE_DIR:}"
+        cd "$target_dir" && ls
+    elif [[ "$result" == TYPE_FILE:* ]]; then
+    # Check if we have a file
+        ${EDITOR:-nano} "${result#TYPE_FILE:}"
+    else
+    # Return an error
+        echo "Could not read $result" >&2
+        return 1
+    fi
+}
+
 # -----------------------------------------------------
 # Fastfetch
 # -----------------------------------------------------
 if [[ $(tty) == *"pts"* ]]; then
-    fastfetch
-fi
-
-# 
-# Conda
-#
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-#         . "/opt/miniconda3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/opt/miniconda3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# <<< conda initialize <<<
-. /opt/miniconda3/etc/profile.d/conda.sh
-
-if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
-    export VIRTUAL_ENV="$CONDA_PREFIX"
+    if [ ! -f $HOME/.config/ml4w/settings/hide-fastfetch ]; then
+        fastfetch
+    fi
 fi
