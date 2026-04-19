@@ -11,3 +11,6 @@ export PYTHONPATH="/opt/apache-spark/python/lib/py4j-0.10.9.9-src.zip:$PYTHONPAT
 
 # Pywal 
 # cat ~/.cache/wal/sequences
+
+# Rust
+. "$HOME/.cargo/env"
